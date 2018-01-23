@@ -289,10 +289,12 @@ public <ReqT, RespT> ServerCall.Listener<ReqT> interceptCall(ServerCall<RespT> c
 
 ## Troubleshooting
 
-If you received an error message "ALPN is not configured properly" or "Jetty ALPN/NPN has not been properly configured", it most likely means that:
+If you received an error message "ALPN is not configured properly", "Jetty ALPN/NPN has not been properly configured" or "io.grpc.StatusRuntimeException: UNAVAILABLE: Channel closed while performing protocol negotiation", it most likely means that:
  - ALPN related dependencies are either not present in the classpath
  - or that there is a classpath conflict
  - or that a wrong version is used due to dependency management.
+
+If you have a grpc server that started with no errors, but you are failing to connect to it, you can get some useful debugging information by running `openssl s_client -showcerts -connect <serverHost>:<serverPort>`. In particular, look for SSL-Session Protocol and Cipher, looking for messages like: `No ALPN negotiated` which would indicate ALPN is not working.
 
 ### Netty
 If you aren't using gRPC on Android devices, you are most likely using `grpc-netty` transport.
