@@ -294,7 +294,7 @@ If you received an error message "ALPN is not configured properly", "Jetty ALPN/
  - or that there is a classpath conflict
  - or that a wrong version is used due to dependency management.
 
-If you have a grpc server that started with no errors, but you are failing to connect to it, you can get some useful debugging information by running `openssl s_client -showcerts -connect <domain>:<port>`. In particular, look for SSL-Session Protocol and Cipher, looking for messages like: `No ALPN negotiated` which would mean ALPN is not working.
+If you have a grpc server that started with no errors, but you are failing to connect to it, you can get some useful debugging information by running `openssl s_client -showcerts -connect <serverHost>:<serverPort>`. In particular, look for SSL-Session Protocol and Cipher, looking for messages like: `No ALPN negotiated` which would indicate ALPN is not working.
 
 ### Netty
 If you aren't using gRPC on Android devices, you are most likely using `grpc-netty` transport.
